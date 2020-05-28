@@ -2,7 +2,7 @@
 <html lang="en" class="section">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - AES Decrypt</title>
+  <title>AES Encrypt and Decrypt with QRcode</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://unpkg.com/buefy/dist/buefy.min.css'>
 <link rel='stylesheet' href='https://cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css'>
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.6/css/all.css'>
@@ -12,12 +12,14 @@
 <!-- partial:index.partial.html -->
 <div id="app" class="container">
     <H3>AES encrypt decrypt with qr code</H3>
-    <section>
+	<div class="columns is-mobile">
+  <div class="column is-one-fifths">
 	  		  <figure class="image is-128x128">
            <img :src=qrdata  >
           </figure>
-
-        <b-field label="Password">
+  </div>
+  <div class="column">
+            <b-field label="Password">
             <b-input type="password"
                 v-model="key"
                 value="iwantmytreasure"
@@ -25,12 +27,22 @@
             </b-input>
         </b-field>
  
+  </div>
+ 
+</div>
+    <section>
+
+      
+
+
+
+
  
 
  
 
         <b-field  >
-            <b-input v-model="message" maxlength="200" type="textarea"></b-input>
+            <b-input v-model="message" maxlength="1800" type="textarea" rows=20></b-input>
         </b-field>
 
 
@@ -56,6 +68,7 @@
 <script src='https://rawgit.com/sytelus/CryptoJS/v3.1.2/components/core-min.js'></script>
 <script src='https://rawgit.com/sytelus/CryptoJS/v3.1.2/components/enc-utf16-min.js'></script>
 <script src='https://rawgit.com/sytelus/CryptoJS/v3.1.2/components/enc-base64-min.js'></script>
+
 <script>
 const example = {
 computed: {
@@ -77,15 +90,15 @@ computed: {
             },
             myencrypt(){
               //add by zy
-             key=this.key.toString();
-	        	 source=this.message.toString();
-             this.message=CryptoJS.AES.encrypt(source,key).toString();
-			 this.qrdata=this.qr2(this.message)
+                key=this.key.toString();
+	        	source=this.message.toString();
+                this.message=CryptoJS.AES.encrypt(source,key).toString();
+			    this.qrdata=this.qr2(this.message)
             },
             mydecrypt(){
-             key=this.key.toString();
-	        	 source=this.message.toString();
-              this.message=CryptoJS.AES.decrypt(source,key).toString(CryptoJS.enc.Utf8);
+                key=this.key.toString();
+	        	source=this.message.toString();
+                this.message=CryptoJS.AES.decrypt(source,key).toString(CryptoJS.enc.Utf8);
             } ,
 		qr2(input){
 		const qr = new QRious({
@@ -107,7 +120,8 @@ computed: {
 
             const app = new Vue(example)
             app.$mount('#app')
-</script>
+        
 
+</script>
 </body>
 </html>
